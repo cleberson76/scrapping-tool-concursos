@@ -23,7 +23,7 @@ req = requests.get("https://concursosnobrasil.com/concursos/br/")
 soup = BeautifulSoup(req.content, "html.parser")
 
 # Encontrar os elementos que contêm as informações dos concursos
-concurso_elements = soup.find("div", class_="list-concursos")
+concurso_elements = soup.find("table")
 
 # Criar uma lista para armazenar os títulos das colunas
 headers = []
@@ -36,6 +36,9 @@ for row in concurso_elements.find_all('tr')[1:]:
     row_data = row.find_all('td')
     concurso_info.append([i.text for i in row_data])
 
+
+print(headers)
+print(concurso_info)
 
 # Criar o DataFrame com as informações
 mydata = pd.DataFrame(concurso_info, columns=headers)
